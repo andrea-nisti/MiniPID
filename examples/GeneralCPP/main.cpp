@@ -1,10 +1,13 @@
 
+#include <iostream>
+#include <chrono>
+#include <zconf.h>
 #include "MiniPID.h"
-void loop(double setpoint, double sensor, MiniPID pid);
+void loop(double& setpoint, double& sensor, MiniPID& pid);
 
 int main(){
 
-	double setpoint=0;
+	double setpoint=1;
 	double sensor=0;
 
 	// Create a PID system. 
@@ -13,13 +16,15 @@ int main(){
 
 	while(true){
 		loop(setpoint,sensor,pid);
+		usleep(100000);
+
 	}
 
 	return 0;
 	
 }
 
-void loop(double setpoint, double sensor, MiniPID pid){
+void loop(double& setpoint, double& sensor, MiniPID& pid){
 	 
 	setpoint=setpoint*0.99;
 
@@ -31,5 +36,11 @@ void loop(double setpoint, double sensor, MiniPID pid){
 	// The sensor would then report back the "effect" of our output. 
 	// For this example, we don't have a physical system, so we'll instead just add them 		together.
 	sensor=sensor+out;
+
+	std::cout << "*****************************"<< std::endl;
+	std::cout << "sensor: "   << sensor << std::endl;
+	std::cout << "setpoint: " << setpoint << std::endl;
+	std::cout << "output: "   << out << std::endl;
+	std::cout << "*****************************"<< std::endl;
 
 }
