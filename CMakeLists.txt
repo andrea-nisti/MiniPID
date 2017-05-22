@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project (miniPID CXX)
-list( APPEND CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -g -ftest-coverage -fprofile-arcs")
+set(CMAKE_CXX_STANDARD 11)
 
 # Set build directory
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
