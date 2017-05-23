@@ -37,11 +37,13 @@ private:
 	double F;
 	double dt;
 
+	double dt;
+
 	double maxIOutput;
 	double maxError;
 	double errorSum;
 
-	double maxOutput; 
+	double maxOutput;
 	double minOutput;
 
 	double setpoint;
