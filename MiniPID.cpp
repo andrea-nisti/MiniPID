@@ -35,6 +35,7 @@ void MiniPID::init(){
 	minOutput=0;
 	setpoint=0;
 	lastActual=0;
+	lastSetpoint=0;
 	firstRun=true;
 	reversed=false;
 	useDt=false;
@@ -165,6 +166,9 @@ void MiniPID::setOutputLimits(double minimum,double maximum){
 void MiniPID::setDirection(bool reversed){
 	this->reversed=reversed;
 }
+/** Set the desired differential part calculation
+ * @param useDt Set true to calculate time derivative
+ */
 void MiniPID::useDeltaTime(bool useDt){
 	this->useDt=useDt;
 }
@@ -214,6 +218,7 @@ double MiniPID::getOutput(double actual, double setpoint){
 	//For last output, we can assume it's the current time-independent outputs. 
 	if(firstRun){
 		lastActual=actual;
+		lastSetpoint=setpoint;
 		lastOutput=Poutput+Foutput;
 		firstRun=false;
 	}
