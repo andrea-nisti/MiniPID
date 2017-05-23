@@ -42,6 +42,7 @@ void MiniPID::init(){
 	lastOutput=0;
 	outputFilter=0;
 	setpointRange=0;
+	dt=0;
 }
 
 //**********************************
