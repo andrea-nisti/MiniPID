@@ -37,6 +37,7 @@ void MiniPID::init(){
 	lastActual=0;
 	firstRun=true;
 	reversed=false;
+	useDt=false;
 	outputRampRate=0;
 	lastOutput=0;
 	outputFilter=0;
@@ -163,6 +164,9 @@ void MiniPID::setOutputLimits(double minimum,double maximum){
 void MiniPID::setDirection(bool reversed){
 	this->reversed=reversed;
 }
+void MiniPID::useDeltaTime(bool useDt){
+	this->useDt=useDt;
+}
 
 //**********************************
 //Primary operating functions
@@ -218,8 +222,14 @@ double MiniPID::getOutput(double actual, double setpoint){
 	//Note, this->is negative. this->actually "slows" the system if it's doing
 	//the correct thing, and small values helps prevent output spikes and overshoot 
 
-	Doutput= -D*(actual-lastActual);
-	lastActual=actual;
+	if(useDt && (dt > 0)){
+		Doutput= D*((setpoint-lastSetpoint) - (actual-lastActual)) / dt;
+		lastActual=actual;
+		lastSetpoint=setpoint;
+	} else{
+		Doutput= -D*(actual-lastActual);
+		lastActual=actual;
+	}
 
 
 
@@ -322,6 +332,12 @@ void MiniPID::setOutputFilter(double strength){
 	if(strength==0 || bounded(strength,0,1)){
 		outputFilter=strength;
 	}
+}
+/**
+ * Sets the delta time between each iteration.
+ */
+void MiniPID::setDt(double dt){
+	this->dt=dt;
 }
 
 //**************************************

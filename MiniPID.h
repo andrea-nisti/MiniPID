@@ -20,6 +20,8 @@ public:
 	void setOutputRampRate(double);
 	void setSetpointRange(double);
 	void setOutputFilter(double);
+	void setDt(double);
+	void useDeltaTime(bool);
 	double getOutput();
 	double getOutput(double);
 	double getOutput(double, double);
@@ -33,6 +35,7 @@ private:
 	double I;
 	double D;
 	double F;
+	double dt;
 
 	double maxIOutput;
 	double maxError;
@@ -42,11 +45,13 @@ private:
 	double minOutput;
 
 	double setpoint;
+	double lastSetpoint;
 
 	double lastActual;
 
 	bool firstRun;
 	bool reversed;
+	bool useDt;
 
 	double outputRampRate;
 	double lastOutput;
