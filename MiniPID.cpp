@@ -394,7 +394,3 @@ void MiniPID::checkSigns(){
 		if(F<0) F*=-1;
 	}
 }
-
-void MiniPID::setDt(double dt) {
-    this->dt = dt;
-}

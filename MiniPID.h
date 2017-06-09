@@ -37,8 +37,6 @@ private:
 	double F;
 	double dt;
 
-	double dt;
-
 	double maxIOutput;
 	double maxError;
 	double errorSum;
